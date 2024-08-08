@@ -6,32 +6,48 @@ class Solution
 public:
     int mySqrt(int x)
     {
-        float start = 0, end = x;
-        // cout << start << " " << end << endl;
-        while (end - start > 0.1)
+        if (x == 0)
         {
-            float mid = (start + end) / 2;
-            // cout << mid << endl;
-            if ((int)(mid * mid) == x)
+            return 0;
+        }
+        int start = 0, end = x;
+        while (end - start > 5)
+        {
+            int mid = (start + end) / 2;
+            if (mid == x / mid)
             {
-                return (int)mid;
+                return mid;
             }
-            else if (mid * mid < (float)x)
+            else if (mid < x / mid)
             {
-                start = mid + 1;
+                start = mid;
             }
             else
             {
-                end = mid - 1;
+                end = mid;
             }
         }
-        return (int)start;
+        int sqrt = 0;
+        for (int i = start; i <= end; i++)
+        {
+            if (i == 0)
+            {
+                continue;
+            }
+            if (i >= x / i)
+            {
+                sqrt = i - (i == x / i ? 0 : 1);
+                break;
+            }
+        }
+        return sqrt;
     }
 };
 
 int main()
 {
-    int x = 8;
+    int x = (1 << 10) - 1;
+    cout << x << endl;
     Solution obj;
     cout << obj.mySqrt(x) << endl;
     return 0;
